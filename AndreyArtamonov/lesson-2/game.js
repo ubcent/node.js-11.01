@@ -79,7 +79,7 @@ const game = {
 			} else if (score > 21) {
 				console.log(`Oh! You lose. Your score is ${score}. You will be lucky next time!`);
 				rl.close();
-				this.saveRecord('lose');
+				this.saveRecord('loss');
 			} else {
 				console.log('Oh! That\'s good luck! Your score is 21!\n');
 				rl.close();
@@ -106,7 +106,7 @@ const game = {
 			} else if (score > userScore) {
 				wantToPlay = false;
 				console.log('Sorry, but now i won.');
-				this.saveRecord('lose');
+				this.saveRecord('loss');
 			} else if (score == 21) {
 				wantToPlay = false;
 				if (userScore == 21) {
@@ -114,7 +114,7 @@ const game = {
 					this.saveRecord('draw');
 				} else {
 					console.log('Sorry, but now i won.');
-					this.saveRecord('lose');
+					this.saveRecord('loss');
 				}
 			} else if (score == userScore) {
 				switch (score) {
@@ -144,7 +144,7 @@ const game = {
 	},
 	
 	checkLog(log) {
-		const fields = ['total', 'win', 'lose', 'draw', 'games'];
+		const fields = ['total', 'win', 'loss', 'draw', 'games'];
 		
 		checkField = (field) => {
 			return log[field] != undefined;
@@ -161,7 +161,7 @@ const game = {
 				return log;
 			}
 		};
-		return {total: 0, win: 0, lose: 0, draw: 0, games: []};
+		return {total: 0, win: 0, loss: 0, draw: 0, games: []};
 	},
 	
 	saveRecord(result) {

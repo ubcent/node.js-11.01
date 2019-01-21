@@ -7,7 +7,7 @@ const arguments = minimist(process.argv.slice(2), {
 	alias: {
 		total: 'T',
 		wins: 'W',
-		loses: 'L',
+		losses: 'L',
 		draws: 'D'
 	}
 });
@@ -18,7 +18,7 @@ const stats = {
 	wasFetched: false,
 	
 	checkLog() {
-		const fields = ['total', 'win', 'lose', 'draw', 'games'];
+		const fields = ['total', 'win', 'loss', 'draw', 'games'];
 		
 		checkField = (field) => {
 			return this.log[field] != undefined;
@@ -45,8 +45,8 @@ const stats = {
 		return this.log.win + ` ${Math.round(this.log.win / this.log.total * 100)}%`;
 	},
 
-	getCountLoses() {
-		return this.log.lose + ` ${Math.round(this.log.lose / this.log.total * 100)}%`;
+	getCountLosses() {
+		return this.log.loss + ` ${Math.round(this.log.loss / this.log.total * 100)}%`;
 	},
 
 	getCountDraws() {
@@ -60,7 +60,7 @@ if (stats.wasFetched) {
 	let result = '';
 	if (arguments.total) result += `Total: ${stats.getTotal()} `;
 	if (arguments.wins) result += `Wins: ${stats.getCountWins()} `;
-	if (arguments.loses) result += `Loses: ${stats.getCountLoses()} `;
+	if (arguments.losses) result += `Losses: ${stats.getCountLosses()} `;
 	if (arguments.draws) result += `Draws: ${stats.getCountDraws()} `;
 	if (arguments.maxwins) {
 		const games = stats.log.games;
@@ -81,14 +81,14 @@ if (stats.wasFetched) {
 		
 		result += `Max series of wins: ${max} `;
 	}
-	if (arguments.maxloses) {
+	if (arguments.maxlosses) {
 		const games = stats.log.games;
 		
 		let max = 0,
 			current = 0;
 		
 		games.forEach((game) => {
-			if (game == 'lose') {
+			if (game == 'loss') {
 				current++;
 			} else {
 				if (current > max) max = current;
@@ -98,7 +98,7 @@ if (stats.wasFetched) {
 
 		if (current > max) max = current;
 		
-		result += `Max series of loses: ${max} `;
+		result += `Max series of losses: ${max} `;
 	}
 	if (arguments.last) {
 		const games = stats.log.games;
@@ -110,6 +110,6 @@ if (stats.wasFetched) {
 	if (result) {
 		console.log(result)
 	} else {
-		console.log('Please use next options:\n   [-T | --total]\n   [-W | --wins]\n   [-L | --loses]\n   [-D | --draws]\n   [--maxwins]\n   [--maxloses]\n   [--last [<count>]]');
+		console.log('Please use next options:\n   [-T | --total]\n   [-W | --wins]\n   [-L | --losses]\n   [-D | --draws]\n   [--maxwins]\n   [--maxlosses]\n   [--last [<count>]]');
 	}
 };
