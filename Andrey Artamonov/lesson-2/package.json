@@ -1,0 +1,14 @@
+{
+  "name": "lesson-2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "lesson-2.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Andrey Artamonov",
+  "license": "ISC",
+  "dependencies": {
+    "minimist": "^1.2.0"
+  }
+}
