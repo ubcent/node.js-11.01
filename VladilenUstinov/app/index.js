@@ -3,8 +3,8 @@ const fs = require('fs');
 const link = 'log/game.log';
 
 const rl = readline.createInterface({
-    input: process.stdin, // ввод из стандартного потока
-    output: process.stdout // вывод в стандартный поток
+    input: process.stdin,
+    output: process.stdout
 });
 
 
@@ -21,19 +21,46 @@ function readLog(link) {
             return;
         }
         let stat = data.split('\n').slice(0, -1);
-        let win = 0, loss = 0, maxWin = 0, maxLoss = 0;
-        let a = 0, b = 0;
-        for (let key of stat) {
-            (key === 'Win') ? win++ && a++ : (a >= maxWin) ? maxWin = a : a = 0;
-            (key === 'Loos') ? loss++ && b++ : (b >= maxLoss) ? maxLoss = b : b = 0;
+        let winCount = stat.filter(item => item === 'Win').length;
+        let loseCount = stat.filter(item => item === 'Loss').length;
+        let winLength = 0,
+            maxWinLength = 0,
+            lossLength = 0,
+            maxLossLength = 0;
+
+
+        for (let i = 0; i < stat.length; i++) {
+            if (stat[i] === 'Win') {
+                winLength++;
+            } else {
+                if (maxWinLength < winLength) {
+                    maxWinLength = winLength;
+                }
+                winLength = 0;
+            }
+            if (i === stat.length - 1 && maxWinLength < winLength) {
+                maxWinLength = winLength;
+            }
+
+            if (stat[i] === 'Loss') {
+                lossLength++;
+            } else {
+                if (maxLossLength < lossLength) {
+                    maxLossLength = lossLength;
+                }
+                lossLength = 0;
+            }
+            if (i === stat.length - 1 && maxLossLength < lossLength) {
+                maxLossLength = lossLength;
+            }
         }
 
         let str = `Всего проведено ${stat.length} игр\n`;
-        str += `Выиграно ${win}\n`;
-        str += `Проиграно ${loss}\n`;
-        str += `Соотношение ${win}/${loss}\n`;
-        str += `Максимальное число побед ${maxWin}\n`;
-        str += `Максимальное число поражений ${maxLoss}\n\n`;
+        str += `Выиграно ${winCount}\n`;
+        str += `Проиграно ${loseCount}\n`;
+        str += `Соотношение ${winCount}/${loseCount}\n`;
+        str += `Максимальное число побед ${maxWinLength}\n`;
+        str += `Максимальное число поражений ${maxLossLength}\n\n`;
         str += `Введите Орел или Решка, exit - выход, stat - статистика:`;
 
         return console.log(str);
@@ -62,7 +89,7 @@ function game() {
                 log = "Win\n";
             } else {
                 console.log(`${x} ${coin}, вы выбрали ${answer}. =( Попробуй еще набери npm run start\n`);
-                log = "Loos\n";
+                log = "Loss\n";
             }
             fs.appendFile(link, log, function (err) {
                 if (err) {
