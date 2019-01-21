@@ -72,28 +72,25 @@ else{
 	console.log(showstate());
  	rl.question('Get one more card? Press 1 for yes, any key for no', function(answer) {
 		do {
-	 		if(answer == "1"){
+	 		if(answer == "1" && player.length < 3){
 			 	player.push(addcard());
 			 	if(count(player) > 21){
 			 		console.log("Too many points!");
 			 		console.log(showstate());
-			 		rl.close();
 			 		log.losses = log.losses+1;
 			 		break;
 			 	}
 			 	else if (count(player) == 21){
 			 		console.log("Black Jack!");
 			 		console.log(showstate());
-			 		rl.close();
 			 		log.wins = log.wins+1;
 			 		break;
 			 	}
 			 	else if(count(player) < 21){
 				 	console.log(showstate());
 				 	rl.question('Get one more card? Press 1 for yes, 0 for no', function(answer2) {
-				 		if(answer2 == "1"){
+				 		if(answer2 == '1'){
 				 			player.push(addcard());
-				 			break;
 				 		}
 				 	});
 			    }
@@ -105,35 +102,30 @@ else{
 				if(count(dealer) == 21){
 					console.log("Dealer has got Black Jack! :(");
 					console.log(showstate());
-			 		rl.close();
 			 		log.losses = log.losses+1;
 			 		break;
 				}
 				else if(count(dealer) > 21){
 					console.log("Dealer has too many points! :)");
 					console.log(showstate());
-			 		rl.close();
 			 		log.wins = log.wins+1;
 			 		break;
 				}
 				else if(count(dealer) == count(player)){
 					console.log("Draw! :|");
 					console.log(showstate());
-			 		rl.close();
 			 		log.draws = log.draws+1;
 			 		break;
 				}
 				else if(count(dealer) < count(player)){
 					console.log("You win! :))");
 					console.log(showstate());
-			 		rl.close();
 			 		log.wins = log.wins+1;
 			 		break;
 				}
 				else if(count(dealer) > count(player)){
 					console.log("You lose! :((");
 					console.log(showstate());
-			 		rl.close();
 			 		log.losses = log.losses+1;
 			 		break;
 				}
@@ -144,6 +136,20 @@ else{
 			fs.writeFile('log.txt', JSON.stringify(log), (err) => {  
 			    if (err) throw err;
 			    console.log('Log saved!');
+			    rl.question('Type "1" to show stats, any key to quit', function(stats) {
+					if(stats == "1"){
+						fs.readFile('log.txt', (err, data) => {
+						  if (err) throw err;
+						  var statsobj = JSON.parse(data);
+						  console.log('totalgames: ' + statsobj.totalgames + "\n" + 'wins: ' + statsobj.wins + "\n"
+						  + 'losses: ' + statsobj.losses + "\n" + 'draws: ' + statsobj.draws);
+						  rl.close();
+						});
+					}
+					else{
+						rl.close();
+					}
+				});
 			});	
 	});
 
