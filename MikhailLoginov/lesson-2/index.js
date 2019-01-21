@@ -69,12 +69,31 @@ class BlackJack {
       }
       if (key && key.name == 'h') {
         const card = this.deck.getCard();
-        card.render();
         this.player.hit(card);
+
+        process.stdout.write(' ');
+        card.render();
+
+        if (this.player.score() > 21) {
+          console.log("\n You've busted");
+          this.end();
+        }
       }
       if (key && key.name == 's') {
         await this.dealerTurn();
         this.calculateWinner();
+      }
+    });
+    process.stdin.setRawMode(true);
+    process.stdin.resume();
+  }
+
+  end() {
+    console.log('\n Press SPACE if you want to play new game!');
+    process.stdin.on('keypress', async (ch, key) => {
+      if (key && key.name == 'space') {
+        const game = new BlackJack();
+        game.start();
       }
     });
     process.stdin.setRawMode(true);
