@@ -1,3 +1,5 @@
+const keypress = require('keypress');
+
 const Deck = require('./deck');
 const Player = require('./player');
 class BlackJack {
@@ -13,30 +15,70 @@ class BlackJack {
 
   getStartingHands() {
     this.player.hit(this.deck.getCard());
-    this.dealer.push(this.deck.getCard());
+    this.dealer.hit(this.deck.getCard());
     this.player.hit(this.deck.getCard());
-    this.dealer.push(this.deck.getCard());
+    this.dealer.hit(this.deck.getCard());
+    console.clear();
+    console.log('Press "H" (hit) to take another card');
+    console.log('Press "S" (stand) if you wanna stand');
     console.log('Your cards:');
     const cards = this.player.getCards();
-    console.log(cards[0].render());
-    console.log(cards[1].render(), '\n');
+    // console.log(cards[0].render(), ' ', cards[1].render(), '\n');
+    // process.stdout.write(`${cards[0].render()} ${cards[1].render()}`);
+    cards[0].render();
+    process.stdout.write(' ');
+    cards[1].render();
+  }
+
+  async dealerTurn() {
+    console.log('Dealer Cards: ');
+    const cards = this.dealer.getCards();
+    cards[0].render();
+    process.stdout.write(' ');
+    cards[1].render();
+
+    while (this.dealer.score() < 17) {
+      const card = this.deck.getCard();
+      console.log(card.render());
+      this.dealer.hit(card);
+    }
   }
 
   calculateWinner() {
     const playerScore = this.player.score();
     const dealerScore = this.dealer.score();
     if (playerScore > dealerScore) {
-      return 'player';
+      // return 'player';
+      console.log('You win!');
     } else if (playerScore < dealerScore) {
-      return 'dealer';
+      // return 'dealer';
+      console.log('You lose');
+    } else {
+      // return 'push';
+      console.log('Push!');
     }
-    return 'push';
   }
 
   start() {
     this.getStartingHands();
-    console.log('Do you wanna get another card?');
-    console.log(this.player.score());
+
+    keypress(process.stdin);
+    process.stdin.on('keypress', async (ch, key) => {
+      if (key && key.ctrl && key.name == 'c') {
+        process.stdin.pause();
+      }
+      if (key && key.name == 'h') {
+        const card = this.deck.getCard();
+        card.render();
+        this.player.hit(card);
+      }
+      if (key && key.name == 's') {
+        await this.dealerTurn();
+        this.calculateWinner();
+      }
+    });
+    process.stdin.setRawMode(true);
+    process.stdin.resume();
   }
 }
 
