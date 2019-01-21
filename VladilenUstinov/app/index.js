@@ -44,13 +44,9 @@ function game() {
     console.log('Введите Орел или Решка, exit - выход, stat - статистика:');
     rl.on('line', function (answer) {
         let log;
-        let coint = coinFlip();
+        let coin = coinFlip();
         let x;
-        if (coint === 'Орел' || coint === 'орел') {
-            x = 'Выпал';
-        } else {
-            x = 'Выпала';
-        }
+        x = coin === 'Орел' || coin === 'орел' ? 'Выпал' : 'Выпала';
 
         if (answer === 'exit') {
             return rl.close();
@@ -61,11 +57,11 @@ function game() {
         }
 
         if (answer === 'орел' || answer === 'Орел' || answer === 'Решка' || answer === 'решка') {
-            if (answer === coint) {
-                console.log(`${x} ${coint}, вы выбрали ${answer}. Поздравляем! \n`);
+            if (answer === coin) {
+                console.log(`${x} ${coin}, вы выбрали ${answer}. Поздравляем! \n`);
                 log = "Win\n";
             } else {
-                console.log(`${x} ${coint}, вы выбрали ${answer}. =( Попробуй еще набери npm run start\n`);
+                console.log(`${x} ${coin}, вы выбрали ${answer}. =( Попробуй еще набери npm run start\n`);
                 log = "Loos\n";
             }
             fs.appendFile(link, log, function (err) {
