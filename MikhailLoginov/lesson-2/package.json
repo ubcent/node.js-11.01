@@ -1,0 +1,17 @@
+{
+  "name": "lesson-2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index",
+    "logs": "node log-analyzer"
+  },
+  "keywords": [],
+  "author": "Mikhail Loginov shadoww2131@gmail.com",
+  "license": "ISC",
+  "dependencies": {
+    "colors": "^1.3.3",
+    "keypress": "^0.2.1"
+  }
+}
