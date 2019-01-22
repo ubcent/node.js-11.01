@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index"
+    "start": "node index",
+    "logs": "node log-analyzer"
   },
   "keywords": [],
   "author": "Mikhail Loginov shadoww2131@gmail.com",

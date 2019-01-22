@@ -1,8 +1,11 @@
 const keypress = require('keypress');
 const colors = require('colors');
+const fs = require('fs');
 
 const Deck = require('./deck');
 const Player = require('./player');
+const pathToLogs = require('./config');
+
 class BlackJack {
   constructor() {
     this.deck = new Deck();
@@ -16,58 +19,23 @@ class BlackJack {
     this.player.hit(this.deck.getCard());
     this.dealer.hit(this.deck.getCard());
     console.clear();
-    console.log('Press "H" (hit) to take another card');
-    console.log('Press "S" (stand) if you wanna stand');
-    console.log('Your cards:');
+    console.log(colors.yellow('Press "H" (hit) to take another card'));
+    console.log(colors.yellow('Press "S" (stand) if you wanna stand'));
+    console.log('\nYour cards:');
     const cards = this.player.getCards();
     cards[0].render();
     process.stdout.write(' ');
     cards[1].render();
   }
 
-  dealerTurn() {
-    console.log('\nDealer Cards: ');
-    const cards = this.dealer.getCards();
-    cards[0].render();
-    process.stdout.write(' ');
-    cards[1].render();
+  playerTurn() {
+    let isPlayerTurn = true;
 
-    while (this.dealer.score() < 17) {
-      const card = this.deck.getCard();
-      console.log(card.render());
-      this.dealer.hit(card);
-    }
-  }
-
-  calculateWinner() {
-    const playerScore = this.player.score();
-    const dealerScore = this.dealer.score();
-    console.log();
-    if (playerScore > dealerScore) {
-      // add logs here
-      console.log('You win!');
-    } else if (playerScore < dealerScore) {
-      // add logs here
-      console.log('You lose');
-    } else {
-      // add logs here
-      console.log('Push!');
-    }
-    this.end();
-  }
-
-  start() {
-    this.getStartingHands();
-
-    keypress(process.stdin);
-    process.stdin.on('keypress', (ch, key) => {
+    const playerListeners = (ch, key) => {
       if (key && key.ctrl && key.name == 'c') {
-        // process.stdin.pause();
         process.exit();
       }
-      if (key && key.name == 'h') {
-        // process.stdin.removeAllListeners();
-        process.stdin.pause();
+      if (key && key.name == 'h' && isPlayerTurn) {
         const card = this.deck.getCard();
         this.player.hit(card);
 
@@ -75,30 +43,97 @@ class BlackJack {
         card.render();
 
         if (this.player.score() > 21) {
-          console.log("\n You've busted");
-          this.end();
+          isPlayerTurn = false;
+          process.stdin.removeListener('keypress', playerListeners);
+
+          this.calculateWinner();
         }
       }
-      if (key && key.name == 's') {
-        // process.stdin.resume();
-        process.stdin.pause();
+      if (key && key.name == 's' && isPlayerTurn) {
+        isPlayerTurn = false;
+        process.stdin.removeListener('keypress', playerListeners);
+
         this.dealerTurn();
         this.calculateWinner();
       }
+    };
+
+    process.stdin.on('keypress', playerListeners);
+  }
+
+  dealerTurn() {
+    console.log('\n\nDealer Cards: ');
+    const cards = this.dealer.getCards();
+    cards[0].render();
+    process.stdout.write(' ');
+    cards[1].render();
+
+    while (this.dealer.score() < 17) {
+      const card = this.deck.getCard();
+      process.stdout.write(' ');
+      card.render();
+      this.dealer.hit(card);
+    }
+  }
+
+  calculateWinner() {
+    const playerScore = this.player.score();
+    const dealerScore = this.dealer.score();
+    const log = {};
+    console.log('\n');
+
+    if (playerScore > 21) {
+      console.log(colors.red("You've busted! You lose!"));
+      log.message = 'Player had busted and lost.';
+    } else if (dealerScore > 21) {
+      console.log(colors.green('Dealer has busted! You win!'));
+      log.message = 'Dealer had busted. Player won.';
+    } else if (playerScore > dealerScore) {
+      console.log(colors.green('You win!'));
+      log.message = 'Player won.';
+    } else if (playerScore < dealerScore) {
+      console.log(colors.red('You lose'));
+      log.message = 'Player lost.';
+    } else {
+      console.log('Push!');
+      log.message = 'Push.';
+    }
+
+    log.time = new Date();
+
+    const stream = fs.createWriteStream(pathToLogs, {'flags': 'a'});
+    stream.once('open', function (fd) {
+      stream.write(`${log.time.toISOString()}: ${log.message}\n`);
+      stream.end();
     });
+
+    this.end();
+  }
+
+  start() {
+    keypress(process.stdin);
     process.stdin.setRawMode(true);
+
+    this.getStartingHands();
+    this.playerTurn();
   }
 
   end() {
-    console.log('\n Press SPACE if you want to play new game!');
-    process.stdin.on('keypress', (ch, key) => {
+    console.log(colors.yellow('\nPress SPACE if you want to play new game!'));
+    console.log(colors.yellow('Press "C" to leave!'));
+
+    const continueListeners = (ch, key) => {
       if (key && key.name == 'space') {
+        process.stdin.removeListener('keypress', continueListeners);
         const game = new BlackJack();
         game.start();
       }
-    });
-    process.stdin.setRawMode(true);
-    process.stdin.resume();
+      if (key && key.name == 'c') {
+        process.stdin.removeListener('keypress', continueListeners);
+        process.exit();
+      }
+    };
+    process.stdin.on('keypress', continueListeners);
   }
 }
 
