@@ -18,7 +18,7 @@ class Card {
         process.stdout.write(`${this.rank}\u2665`.red.bgWhite);
         break;
       case 'diamonds':
-        process.stdout.write(`${this.rank}$\u2666`.red.bgWhite);
+        process.stdout.write(`${this.rank}\u2666`.red.bgWhite);
         break;
       case 'spades':
         process.stdout.write(`${this.rank}\u2660`.black.bgWhite);
