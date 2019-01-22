@@ -13,7 +13,7 @@ class BlackJack {
     this.dealer = new Player();
   }
 
-  getStartingHands() {
+  _getStartingHands() {
     this.player.hit(this.deck.getCard());
     this.dealer.hit(this.deck.getCard());
     this.player.hit(this.deck.getCard());
@@ -28,7 +28,7 @@ class BlackJack {
     cards[1].render();
   }
 
-  playerTurn() {
+  _playerTurn() {
     let isPlayerTurn = true;
 
     const playerListeners = (ch, key) => {
@@ -46,22 +46,22 @@ class BlackJack {
           isPlayerTurn = false;
           process.stdin.removeListener('keypress', playerListeners);
 
-          this.calculateWinner();
+          this._calculateWinner();
         }
       }
       if (key && key.name == 's' && isPlayerTurn) {
         isPlayerTurn = false;
         process.stdin.removeListener('keypress', playerListeners);
 
-        this.dealerTurn();
-        this.calculateWinner();
+        this._dealerTurn();
+        this._calculateWinner();
       }
     };
 
     process.stdin.on('keypress', playerListeners);
   }
 
-  dealerTurn() {
+  _dealerTurn() {
     console.log('\n\nDealer Cards: ');
     const cards = this.dealer.getCards();
     cards[0].render();
@@ -76,7 +76,7 @@ class BlackJack {
     }
   }
 
-  calculateWinner() {
+  _calculateWinner() {
     const playerScore = this.player.score();
     const dealerScore = this.dealer.score();
     const log = {};
@@ -107,18 +107,18 @@ class BlackJack {
       stream.end();
     });
 
-    this.end();
+    this._end();
   }
 
   start() {
     keypress(process.stdin);
     process.stdin.setRawMode(true);
 
-    this.getStartingHands();
-    this.playerTurn();
+    this._getStartingHands();
+    this._playerTurn();
   }
 
-  end() {
+  _end() {
     console.log(colors.yellow('\nPress SPACE if you want to play new game!'));
     console.log(colors.yellow('Press "C" to leave!'));
 
