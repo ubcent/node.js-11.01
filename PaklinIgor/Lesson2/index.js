@@ -5,7 +5,7 @@ const fs = require('fs');
 let deck;
 const deckColors = ['s','c','d','h'];
 const deckCards = ['J','Q','K'];
-const LOG_FILE = './game_log.txt';
+const LOG_FILE = './Lesson2/game_log.txt';
 
 let humanHand,dilerHand;
 let humanPoints,dilerPoints;
