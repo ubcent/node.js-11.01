@@ -13,23 +13,18 @@ class Card {
   }
 
   render() {
-    let suitSymbol = '';
     switch (this.suit) {
       case 'hearts':
-        suitSymbol = '\u2665';
-        process.stdout.write(`${this.rank}${suitSymbol}`.red.bgWhite);
+        process.stdout.write(`${this.rank}\u2665`.red.bgWhite);
         break;
       case 'diamonds':
-        suitSymbol = '\u2666';
-        process.stdout.write(`${this.rank}${suitSymbol}`.red.bgWhite);
+        process.stdout.write(`${this.rank}$\u2666`.red.bgWhite);
         break;
       case 'spades':
-        suitSymbol = '\u2660';
-        process.stdout.write(`${this.rank}${suitSymbol}`.black.bgWhite);
+        process.stdout.write(`${this.rank}\u2660`.black.bgWhite);
         break;
       case 'clubs':
-        suitSymbol = '\u2663';
-        process.stdout.write(`${this.rank}${suitSymbol}`.black.bgWhite);
+        process.stdout.write(`${this.rank}\u2663`.black.bgWhite);
         break;
       default:
         throw new Error('wrong suit format');
@@ -37,10 +32,7 @@ class Card {
   }
 
   score() {
-    if (this.rank === 'A') {
-      return 11;
-    }
-    return /\D/.test(this.rank) ? 10 : +this.rank;
+    return /\D/.test(this.rank) ? (this.rank === 'A' ? 11 : 10) : +this.rank;
   }
 }
 

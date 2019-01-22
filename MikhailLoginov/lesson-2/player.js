@@ -1,6 +1,5 @@
 class Player {
-  constructor(money = 1000) {
-    this.money = money; // not yet implemented
+  constructor() {
     this.cards = [];
   }
 

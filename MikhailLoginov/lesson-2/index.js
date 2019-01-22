@@ -101,8 +101,8 @@ class BlackJack {
 
     log.time = new Date();
 
-    const stream = fs.createWriteStream(pathToLogs, {'flags': 'a'});
-    stream.once('open', function (fd) {
+    const stream = fs.createWriteStream(pathToLogs, { flags: 'a' });
+    stream.once('open', function(fd) {
       stream.write(`${log.time.toISOString()}: ${log.message}\n`);
       stream.end();
     });
@@ -125,8 +125,7 @@ class BlackJack {
     const continueListeners = (ch, key) => {
       if (key && key.name == 'space') {
         process.stdin.removeListener('keypress', continueListeners);
-        const game = new BlackJack();
-        game.start();
+        new BlackJack().start();
       }
       if (key && key.name == 'c') {
         process.stdin.removeListener('keypress', continueListeners);
@@ -137,5 +136,4 @@ class BlackJack {
   }
 }
 
-const game = new BlackJack();
-game.start();
+new BlackJack().start();

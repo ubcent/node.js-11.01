@@ -20,10 +20,6 @@ class Deck {
     const cardNumber = Math.floor(Math.random() * this.deck.length);
     return this.deck.splice(cardNumber, 1)[0];
   }
-
-  getAllCards() {
-    return this.deck;
-  }
 }
 
 module.exports = Deck;
