@@ -1,0 +1,18 @@
+{
+  "name": "lesson-3",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "news": "node news",
+    "translate": "node translate"
+  },
+  "keywords": [],
+  "author": "Mikhail Loginov shadoww2131@gmail.com",
+  "license": "ISC",
+  "dependencies": {
+    "colors": "^1.3.3",
+    "dotenv": "^6.2.0",
+    "node-fetch": "^2.3.0"
+  }
+}

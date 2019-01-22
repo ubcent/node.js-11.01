@@ -1,0 +1,17 @@
+{
+    "files.autoSave": "afterDelay",
+    "liveServer.settings.donotShowInfoMsg": true,
+    "cosmosDB.showSavePrompt": false,
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": true,
+    "prettier.eslintIntegration": true,
+    "prettier.singleQuote": true,
+    "prettier.printWidth": 99,
+    "vetur.format.defaultFormatter.html": "none",
+    "prettier.trailingComma": "all",
+    "eslint.validate": [
+        "javascript",
+        "javascriptreact",
+        "vue"
+    ],
+}
