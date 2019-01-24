@@ -29,8 +29,8 @@ function readLog(link) {
             maxLossLength = 0;
 
 
-        for (let i = 0; i < stat.length; i++) {
-            if (stat[i] === 'Win') {
+        for (let key in stat) {
+            if (key === 'Win') {
                 winLength++;
             } else {
                 if (maxWinLength < winLength) {
@@ -38,11 +38,11 @@ function readLog(link) {
                 }
                 winLength = 0;
             }
-            if (i === stat.length - 1 && maxWinLength < winLength) {
+            if (key === stat.length - 1 && maxWinLength < winLength) {
                 maxWinLength = winLength;
             }
 
-            if (stat[i] === 'Loss') {
+            if (key === 'Loss') {
                 lossLength++;
             } else {
                 if (maxLossLength < lossLength) {
@@ -50,7 +50,7 @@ function readLog(link) {
                 }
                 lossLength = 0;
             }
-            if (i === stat.length - 1 && maxLossLength < lossLength) {
+            if (key === stat.length - 1 && maxLossLength < lossLength) {
                 maxLossLength = lossLength;
             }
         }
