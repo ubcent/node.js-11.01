@@ -12,7 +12,7 @@ Use [--save | -S] to write news list to file
 
 ## Translator
 
-Translator from english to russian
+Translator from russian to english
 
 ```
 node translate.js <word>
