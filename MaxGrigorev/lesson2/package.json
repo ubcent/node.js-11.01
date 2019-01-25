@@ -1,0 +1,23 @@
+{
+  "name": "nodejsGB",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MaxGrigorev/nodejsGB.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MaxGrigorev/nodejsGB/issues"
+  },
+  "homepage": "https://github.com/MaxGrigorev/nodejsGB#readme",
+  "dependencies": {
+    "minimist": "^1.2.0"
+  }
+}
