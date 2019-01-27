@@ -80,20 +80,48 @@ sortBy = (key, event) => {
      }   
   }
 
-
-handleSendClick1 = (event) => {
-
+handleSendClick = (event) => {
+  event.persist();
   this.setState({ loading: true });
    window.fetch('http://localhost:8888/api/newsitems')
     .then((response) => response.json())
     .then((items) => {
       var res = items.items;
-      var filtered = res.filter(item => item.category == 'Чемпионат Европы');
-      this.setState({
-         items: filtered,
-         loading: false,
-         shouldHide: false
-      })
+      switch(event.target.id) {
+        case 'button1':
+          var filtered = res.filter(item => item.category.includes('Чемпионат'));
+          this.setState({
+             items: filtered,
+             loading: false,
+             shouldHide: false
+          })
+          break;
+        case 'button2':
+          var filtered = res.filter(item => item.category == 'Australian Open');
+          this.setState({
+             items: filtered,
+             loading: false,
+             shouldHide: false
+          })
+          break;
+        case 'button3':
+          var filtered = res.filter(item => item.category == 'Трансферы');
+          this.setState({
+             items: filtered,
+             loading: false,
+             shouldHide: false
+          })
+          break;
+        case 'button4':
+          this.setState({
+             items: res,
+             loading: false,
+             shouldHide: false
+          })
+          break;
+        default:
+          console.log('unexpected target');
+      }
     })
     .catch(() => {
          this.setState({
@@ -102,78 +130,6 @@ handleSendClick1 = (event) => {
          shouldHide: false
       });
     });  
-    event.preventDefault();
-  }
-
-
-handleSendClick2 = (event) => {
-
-  this.setState({ loading: true });
-   window.fetch('http://localhost:8888/api/newsitems')
-    .then((response) => response.json())
-    .then((items) => {
-      var res = items.items;
-      var filtered = res.filter(item => item.category == 'Australian Open');
-      this.setState({
-         items: filtered,
-         loading: false,
-         shouldHide: false
-      })
-    })
-    .catch(() => {
-         this.setState({
-         items: [],
-         loading: false,
-         shouldHide: false
-      });
-    });
-    event.preventDefault();
-  }
-
-handleSendClick3 = (event) => {
-
-  this.setState({ loading: true });
-   window.fetch('http://localhost:8888/api/newsitems')
-    .then((response) => response.json())
-    .then((items) => {
-      var res = items.items;
-      var filtered = res.filter(item => item.category == 'Трансферы');
-      this.setState({
-         items: filtered,
-         loading: false,
-         shouldHide: false
-      })
-    })
-    .catch(() => {
-         this.setState({
-         items: [],
-         loading: false,
-         shouldHide: false
-      });
-    });
-    event.preventDefault();
-  }
-
-  handleSendClick4 = (event) => {
-
-  this.setState({ loading: true });
-   window.fetch('http://localhost:8888/api/newsitems')
-    .then((response) => response.json())
-    .then((items) => {
-      var res = items.items;
-      this.setState({
-         items: res,
-         loading: false,
-         shouldHide: false
-      })
-    })
-    .catch(() => {
-         this.setState({
-         items: [],
-         loading: false,
-         shouldHide: false
-      });
-    });
     event.preventDefault();
   }
 
@@ -205,10 +161,10 @@ handleSendClick3 = (event) => {
           <div className = "text-center">
             <h4> Выберите категорию новостей </h4>
             <div className = "buttons">
-              <button type="submit" className="btn btn-primary" onClick={this.handleSendClick1}>Чемпионат Европы</button>
-              <button type="submit" className="btn btn-primary" onClick={this.handleSendClick2}>Australian Open</button>
-              <button type="submit" className="btn btn-primary" onClick={this.handleSendClick3}>Трансферы</button>
-              <button type="submit" className="btn btn-primary" onClick={this.handleSendClick4}>Все категории</button>
+              <button type="submit" className="btn btn-primary" id = "button1" onClick={this.handleSendClick}>Чемпионаты</button>
+              <button type="submit" className="btn btn-primary" id = "button2" onClick={this.handleSendClick}>Australian Open</button>
+              <button type="submit" className="btn btn-primary" id = "button3" onClick={this.handleSendClick}>Трансферы</button>
+              <button type="submit" className="btn btn-primary" id = "button4" onClick={this.handleSendClick}>Все категории</button>
             </div>
             <Search onTextChange={text => this.setState({filterString: text})}/ >
             { loading ? <Loading /> : ''}
@@ -218,8 +174,8 @@ handleSendClick3 = (event) => {
             <div className="header">
               <div onClick={(event) => this.sortBy('id', event)}>ID &#9660;</div>
               <div className = "right-col">
-              <div>Название новости</div>
-              <div>Категория</div>
+                <div>Название новости</div>
+                <div>Категория</div>
               </div>
             </div>
             <div className="body">
