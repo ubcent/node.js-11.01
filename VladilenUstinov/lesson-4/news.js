@@ -24,7 +24,7 @@ function sendRequest(url, selector, category) {
         if (err) console.log(`Не удалось получить страницу из за следующей ошибки:  ${err}`);
 
         const $ = cheerio.load(html);
-        // собираем необъодимые данные
+        // собираем необходимые данные
         $(selector).each(function () {
             let news = {category};
             news.time = $(this).find('.story__date').text().split('\n')[1];
@@ -66,7 +66,6 @@ app.get('/news-list', (req, res) => {
     obj = JSON.parse(fs.readFileSync(`news/${urlQuery.resource}.json`, 'utf8'));
     sendRequest(urlYandex[urlQuery.resource][0], urlYandex[urlQuery.resource][1], urlQuery.resource);
     res.render('news', obj);
-    // res.render('news', obj)
 });
 
 app.listen(port, () => {
