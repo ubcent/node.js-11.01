@@ -1,6 +1,8 @@
 <template>
   <news
     :data="data"
+    :initCategory="category"
+    :initCountry="country"
     @keywordInput="keywordInput"
     @categoryInput="categoryInput"
     @countryInput="countryInput"
@@ -8,6 +10,8 @@
 </template>
 
 <script>
+import Cookies from 'cookies-js';
+
 import News from '~/components/News.vue';
 
 export default {
@@ -25,7 +29,12 @@ export default {
   },
 
   async created() {
-    this.data = await this.getNews();
+    const initCategory = Cookies.get('category');
+    const initCountry = Cookies.get('country');
+    this.category = initCategory || '';
+    this.country = initCountry || 'ru';
+
+    this.data = await this.getNews(this.keyword, this.category, this.country);
   },
 
   methods: {
@@ -54,16 +63,21 @@ export default {
         return json.articles;
       }
     },
+
     async keywordInput(keyword) {
       this.keyword = keyword;
       this.data = await this.getNews(this.keyword, this.category, this.country);
     },
+
     async categoryInput(category) {
       this.category = category;
+      Cookies.set('category', category);
       this.data = await this.getNews(this.keyword, this.category, this.country);
     },
+
     async countryInput(country) {
       this.country = country;
+      Cookies.set('country', country);
       this.data = await this.getNews(this.keyword, this.category, this.country);
     },
   }

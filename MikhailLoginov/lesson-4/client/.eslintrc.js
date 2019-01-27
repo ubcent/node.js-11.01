@@ -23,6 +23,7 @@ module.exports = {
      'no-debugger': 1,
      'no-console': 1,
      'space-before-function-paren': 0,
-     'indent': 1
+     'indent': 1,
+     'vue/attribute-hyphenation': 0
   },
 }

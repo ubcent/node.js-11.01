@@ -4,22 +4,25 @@ This app consists of client and server sides. Server side is a simple express ap
 
 Server app uses .env keys; you must ask any developer for actual keys.
 
-
-## Working from root directory
-
-You may install / work with this app from its root folder via this commands:
-
-1. install all
+## Server usage
 ```
-npm run install
+cd server
+npm install
+npm start
 ```
 
-2. dev mode
+## Client usage
 ```
-npm run dev
+cd client
+npm install
 ```
 
-3. prod mode
+for prod
 ```
 npm start
+```
+
+for dev
+```
+npm run dev
 ```

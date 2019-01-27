@@ -72,6 +72,14 @@ export default {
     data: {
       type: Array,
       default: () => [],
+    },
+    initCategory: {
+      type: String,
+      default: '',
+    },
+    initCountry: {
+      type: String,
+      default: 'ru',
     }
   },
 
@@ -94,8 +102,8 @@ export default {
         'ua',
       ],
       keyword: '',
-      category: '',
-      country: 'ru',
+      category: this.initCategory,
+      country: this.initCountry,
     };
   },
 };
