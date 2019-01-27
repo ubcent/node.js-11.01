@@ -1,0 +1,22 @@
+{
+  "name": "lesson-4",
+  "version": "1.0.0",
+  "description": "Geekbrains lesson 4 client-server application",
+  "main": "",
+  "scripts": {
+    "install": "npm run server-inst && npm run client-inst",
+    "start": "concurrently \"npm run client-start\" \"npm run server-start\"",
+    "dev": "concurrently \"npm run client-dev\" \"npm run server-start\"",
+    "server-inst": "cd server && npm i",
+    "client-inst": "cd client && npm i",
+    "client-start": "cd client && npm start",
+    "server-start": "cd server && npm start",
+    "client-dev": "cd client && npm run dev"
+  },
+  "keywords": [],
+  "author": "Mikhail Loginov shadoww2131@gmail.com",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^4.1.0"
+  }
+}
