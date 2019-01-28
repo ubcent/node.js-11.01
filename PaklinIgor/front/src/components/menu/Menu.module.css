@@ -1,0 +1,46 @@
+.menu {
+    display: grid;
+    grid-template-columns: 115px 1fr;
+    grid-gap: 40px;
+
+    margin: auto;
+    height: 50px;
+    width: 60%;
+    background-color: #ccc;
+
+    position: fixed;
+    top: 0;
+    left: 20%;
+    z-index: 1000;
+}
+
+@media (max-width: 1024px) {
+    .menu {
+        width: 100%;
+        left: 0;
+    }
+}
+
+.logo {
+    width: 100%;
+    max-height: 100%;
+    margin: auto;
+
+}
+
+.logo__link {
+    width: 100%;
+}
+
+.displayItems {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(4,1fr) 150px;
+    grid-gap: 20px;
+    justify-items: center;
+    align-items: center;
+    height: 100%;
+    box-sizing: border-box;
+}

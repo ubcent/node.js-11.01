@@ -1,0 +1,22 @@
+.item {
+    height: 100%;
+    width: 100%;
+    display: block;
+}
+
+.item a {
+    text-decoration: none;
+    text-align: center;
+    font-size: 1.5rem;
+    line-height: 200%;
+    color: #000;
+    height: 100%;
+    display: block;
+    box-sizing: border-box;
+}
+
+.item a.active {
+    font-weight: bold;
+    border-bottom: 3px solid blue;
+    /* border-radius: 37px; */
+}
