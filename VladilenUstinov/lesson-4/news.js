@@ -4,6 +4,7 @@ const request = require('request');
 const cheerio = require('cheerio');
 const express = require('express');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 const fs = require('fs');
 const consolidate = require('consolidate');
 const url = require('url');
@@ -19,6 +20,7 @@ app.set('news', path.resolve(__dirname, 'views'));
 
 function sendRequest(url, selector, category) {
     let allNews = [];
+    let id = 0;
     request(url, (err, res, html) => {
         if (err) console.log(`Не удалось получить страницу из за следующей ошибки:  ${err}`);
 
@@ -26,6 +28,7 @@ function sendRequest(url, selector, category) {
         // collect the necessary data
         $(selector).each(function () {
             let news = {category};
+            news.id = ++id;
             news.time = $(this).find('.story__date').text().split('\n')[1];
             news.title = $(this).find('.story__title').text();
             news.description = $(this).find('.story__text').text();
@@ -44,6 +47,12 @@ function sendRequest(url, selector, category) {
 app.use('/assets', express.static('./static'));
 
 app.use(bodyParser.json());
+app.use(cookieParser());
+
+app.use((req, res, next) => {
+    urlQuery = url.parse(req.url, true).query;
+    next();
+});
 
 const urlYandex = {
     'sport': ['https://news.yandex.ru/sport.html?from=rubric', '.story'],
@@ -51,10 +60,6 @@ const urlYandex = {
     'politic': ['https://news.yandex.ru/politics.html?from=rubric', '.story']
 };
 
-app.use((req, res, next) => {
-    urlQuery = url.parse(req.url, true).query;
-    next();
-});
 
 app.get('/', (req, res) => {
     // parsing initial news
@@ -64,8 +69,24 @@ app.get('/', (req, res) => {
 });
 
 app.get('/news-list', (req, res) => {
-    jsonNews = JSON.parse(fs.readFileSync(`news/${urlQuery.resource}.json`, 'utf8'));
-    sendRequest(urlYandex[urlQuery.resource][0], urlYandex[urlQuery.resource][1], urlQuery.resource);
+    // set cookie
+    const cookieStr = `{"category": "${urlQuery.resource}"}`;
+    res.cookie('newsForm', cookieStr);
+
+    // get cookie
+    let cookieNewsFrom = {category: null};
+    if (req.cookies['newsForm']) {
+        cookieNewsFrom = JSON.parse(req.cookies['newsForm']);
+        cookieNewsFrom = cookieNewsFrom.category;
+    } else {
+        cookieNewsFrom = urlQuery.resource;
+    }
+    if (cookieNewsFrom === null) {
+        cookieNewsFrom = urlQuery.resource;
+    }
+
+    sendRequest(urlYandex[cookieNewsFrom][0], urlYandex[cookieNewsFrom][1], cookieNewsFrom);
+    jsonNews = JSON.parse(fs.readFileSync(`news/${cookieNewsFrom}.json`, 'utf8'));
     res.render('news', jsonNews);
 });
 
