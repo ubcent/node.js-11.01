@@ -8,8 +8,7 @@ const fs = require('fs');
 const consolidate = require('consolidate');
 const url = require('url');
 let urlQuery;
-
-let obj = JSON.parse(fs.readFileSync('news/sport.json', 'utf8'));
+let jsonNews;
 
 const app = express();
 const port = 9999;
@@ -24,7 +23,7 @@ function sendRequest(url, selector, category) {
         if (err) console.log(`Не удалось получить страницу из за следующей ошибки:  ${err}`);
 
         const $ = cheerio.load(html);
-        // собираем необходимые данные
+        // collect the necessary data
         $(selector).each(function () {
             let news = {category};
             news.time = $(this).find('.story__date').text().split('\n')[1];
@@ -32,7 +31,7 @@ function sendRequest(url, selector, category) {
             news.description = $(this).find('.story__text').text();
             allNews.push(news);
         });
-        // Записываем в json
+        // write to json
         fs.writeFile(`news/${category}.json`, JSON.stringify(allNews), function (err) {
             if (err) {
                 throw err;
@@ -58,16 +57,19 @@ app.use((req, res, next) => {
 });
 
 app.get('/', (req, res) => {
+    // parsing initial news
     sendRequest(urlYandex['sport'][0], urlYandex['sport'][1], 'sport');
-    res.render('news', obj);
+    jsonNews = JSON.parse(fs.readFileSync('news/sport.json', 'utf8'))
+    res.render('news', jsonNews);
 });
 
 app.get('/news-list', (req, res) => {
-    obj = JSON.parse(fs.readFileSync(`news/${urlQuery.resource}.json`, 'utf8'));
+    jsonNews = JSON.parse(fs.readFileSync(`news/${urlQuery.resource}.json`, 'utf8'));
     sendRequest(urlYandex[urlQuery.resource][0], urlYandex[urlQuery.resource][1], urlQuery.resource);
-    res.render('news', obj);
+    res.render('news', jsonNews);
 });
 
+// start server
 app.listen(port, () => {
     console.log(`Server has been started http://localhost:${port}`);
 });
