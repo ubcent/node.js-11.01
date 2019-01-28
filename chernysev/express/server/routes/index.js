@@ -1,9 +1,10 @@
 const fs = require('fs')
-const path = './db/posts';
+const path = './db/posts'
+const pathr = require('path')
 
 module.exports = function (app) {
   app.get('/', (req,res) => {
-    res.send('hello')
+    res.sendFile(pathr.join(__dirname,'../../client/dist/index.html'))
   })
 
   app.get('/posts', async (req,res) => {
