@@ -1,0 +1,22 @@
+{
+  "name": "lesson4",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "bootstrap": "^4.2.1",
+    "cheerio": "^1.0.0-rc.2",
+    "consolidate": "^0.15.1",
+    "cookie-parser": "^1.4.3",
+    "cookies": "^0.7.3",
+    "express": "^4.16.4",
+    "handlebars": "^4.0.12",
+    "request": "^2.88.0"
+  }
+}
