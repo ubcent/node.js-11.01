@@ -1,0 +1,7 @@
+{
+    "dependencies": {
+        "kleur": ">=3.0.1",
+        "prompts": ">=2.0.1",
+        "sisteransi": ">=1.0.0"
+    }
+}
