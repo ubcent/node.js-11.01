@@ -1,0 +1,22 @@
+<html>
+  <head>
+    <base href="/" />
+    <link rel="stylesheet" href="assets/main.css" />
+  </head>
+  <body>
+    <h1>{{title}}</h1>
+
+      <form method="POST">
+          <label>Поиск по заголовку</label>
+          <input type="text" name="search" placeholder="Введите слово" value="{{search}}">
+          <button type="submit">Искать</button>
+      </form>
+
+      {{#each newsmax}}
+        <div class="newsmax">
+          <h2 class="date">{{this.title}}</h2>
+          <p>{{this.descr}}</a>
+        </div>
+      {{/each}}
+  </body>
+</html>
