@@ -22,8 +22,26 @@ app.get('/', () => {
 });
 
 app.get('/tasks', async (req, res) => {
-  const task = await Task.find();
+  const tasks = await Task.find();
   res.json(task);
+});
+//возвращает все невыполненные таски
+app.get('/tasks/false', (req, res) => {
+  Task.find({ status: false }, (err, tasks) => {
+    if (err) {
+      res.sendStatus(503);
+    }
+    res.json(tasks);
+  });
+});
+//возвращает только выполненные таски
+app.get('/tasks/true', (req, res) => {
+  Task.find({ status: true }, (err, tasks) => {
+    if (err) {
+      res.sendStatus(503);
+    }
+    res.json(tasks);
+  });
 });
 
 
@@ -45,10 +63,25 @@ app.put('/tasks/:id', (req, res) => {
      if (err) {
        res.sendStatus(503);
      }
+     console.log(task.desctiption);
      Task.find({ _id: req.params.id }, (err, task) => {
        res.status(200).json(task);
      })
    });
+});
+
+//Выполнение задачи
+app.patch('/tasks/:id', (req, res) => {
+  const task = Task.find({ _id: req.params.id });
+  task.updateOne( { _id: req.params.id }, { status: true }, (err, raw) => {
+    if (err) {
+      res.sendStatus(503);
+    }
+    //тут костылек чтобы вернуть обновленный таск
+    Task.find({ _id: req.params.id }, (err, task) => {
+      res.status(200).json(task);
+    })
+  });
 });
 
 //Удаление элемента
