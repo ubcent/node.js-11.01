@@ -20,5 +20,8 @@
     "cors": "^2.8.5",
     "express": "^4.16.4",
     "mongoose": "^5.4.8"
+  },
+  "devDependencies": {
+    "faker": "^4.1.0"
   }
 }
