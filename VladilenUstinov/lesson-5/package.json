@@ -10,7 +10,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.18.3",
+    "consolidate": "^0.15.1",
     "express": "^4.16.4",
+    "handlebars": "^4.0.12",
     "mysql": "^2.16.0",
     "nodemon": "^1.18.9"
   }
