@@ -1,14 +1,14 @@
 {
-  "name": "react-blog",
+  "name": "lesson-5",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server/index.js",
   "scripts": {
     "server": "node server",
     "migrate": "migrate-mongo -f ./migrations/mongo/migrate-mongo-config.js",
     "seed": "npm run migrate up"
   },
-  "author": "",
+  "author": "MikhailLoginov shadoww2131@gmail.com",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.3",
