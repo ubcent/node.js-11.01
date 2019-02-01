@@ -1,9 +1,9 @@
-<html lang="ru">
+<html>
 <head>
     <base href="/">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
           integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-            <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
 <div class="hero">
@@ -11,9 +11,9 @@
         <h1 class="text-center display-2">TodoList</h1>
         <p class="lead text-center">Welcome to my todoList applications</p>
         <div class="row">
-            <form class="col-8 mx-auto" action="/add">
+            <form class="col-8 mx-auto" method="post" action="/add">
                 <div class="input-group">
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                    <input name="task" type="text" class="form-control"
                            placeholder="Enter task"><span><button type="submit"
                                                                   class="btn btn-primary">Submit</button></span>
                 </div>

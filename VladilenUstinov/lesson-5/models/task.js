@@ -24,7 +24,7 @@ class Task {
 
                 connection.query(`SELECT *
                                   FROM tasks
-                                  WHERE id =` + id, (err, rows) => {
+                WHERE id = ${id}`, (err, rows) => {
                     if (err) reject(err);
 
                     resolve(rows);
@@ -40,11 +40,24 @@ class Task {
     }
 
     static update() {
-        return `Hi, man`;
+
     }
 
-    static add() {
+    static add(text) {
+        return new Promise((resolve, reject) => {
+            pool.getConnection((err, connection) => {
+                if (err) reject(err);
 
+                connection.query("INSERT INTO tasks (`text`) VALUES (?)", text, (err, rows) => {
+                    if (err) reject(err);
+
+                    resolve(rows);
+                });
+            });
+        });
+
+
+        ;
     }
 
     static complete() {

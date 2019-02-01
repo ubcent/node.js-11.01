@@ -12,8 +12,7 @@ app.set('view engine', 'hbs');
 app.set('views', path.resolve(__dirname, '../views'));
 
 app.use('/assets', express.static('./static'));
-
-let urlencodedParser = bodyParser.urlencoded({extended: false})
+app.use(bodyParser.urlencoded({extended: false}));
 
 const Task = require('../models/task');
 
@@ -25,8 +24,11 @@ app.get('/', (req, res) => {
     });
 });
 
-app.post('/add', urlencodedParser, (req, res) => {
-    console.log(req.params);
+app.post('/add', (req, res) => {
+    Task.add(req.body.task);
+    // res.send(req.params.task);
+    // console.log(req.body.task);
+    res.redirect('/');
 });
 
 app.get('/task/:id', (req, res) => {
