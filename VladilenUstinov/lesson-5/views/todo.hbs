@@ -14,21 +14,20 @@
             <form class="col-8 mx-auto" method="post" action="/add">
                 <div class="input-group">
                     <input name="task" type="text" class="form-control"
-                           placeholder="Enter task"><span><button type="submit"
-                                                                  class="btn btn-primary">Submit</button></span>
+                           placeholder="Enter task" value="{{textTask}}"><span><button type="submit"
+                                                                                       class="btn btn-primary">Submit</button></span>
                 </div>
-
             </form>
         </div>
         <div class="row">
             <ul id="list" class="list col-lg-6 col-8 mx-auto">
                 {{#each tasks}}
-                    <li><a href="/task/{{id}}">Id: {{id}}</a> {{text}}<input type="checkbox" class="checkbox"></li>
+                    <li><span class="{{status}}"><a href="/update/{{id}}">{{text}}</a></span>
+                        <span class="link"><a href="/complete/{{id}}" class="comp">complete</a>
+                        <a href="/remove/{{id}}" class="del">del</a></span>
+                    </li>
                 {{/each}}
             </ul>
-        </div>
-        <div class="row">
-            <button id="btnClr" type="button" class="btn btn-primary mx-auto btnHide">Clear</button>
         </div>
     </div>
 </div>

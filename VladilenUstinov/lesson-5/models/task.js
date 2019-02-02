@@ -31,15 +31,38 @@ class Task {
                 });
             });
         });
-
-
     }
 
-    static remove() {
+    static remove(id) {
+        return new Promise((resolve, reject) => {
+            pool.getConnection((err, connection) => {
+                if (err) reject(err);
 
+                connection.query(`DELETE
+                                  FROM tasks
+                WHERE id = ${id}`, (err, rows) => {
+                    if (err) reject(err);
+
+                    resolve(rows);
+                });
+            });
+        });
     }
 
-    static update() {
+    static update(text, id) {
+        return new Promise((resolve, reject) => {
+            pool.getConnection((err, connection) => {
+                if (err) reject(err);
+
+                connection.query(`UPDATE tasks
+                                  SET text = (?)
+                WHERE id = ${id}`, text, (err, rows) => {
+                    if (err) reject(err);
+
+                    resolve(rows);
+                });
+            });
+        });
 
     }
 
@@ -55,13 +78,22 @@ class Task {
                 });
             });
         });
-
-
-        ;
     }
 
-    static complete() {
+    static complete(id) {
+        return new Promise((resolve, reject) => {
+            pool.getConnection((err, connection) => {
+                if (err) reject(err);
 
+                connection.query(`UPDATE tasks
+                                  SET status = 'complete'
+                WHERE id = ${id}`, (err, rows) => {
+                    if (err) reject(err);
+
+                    resolve(rows);
+                });
+            });
+        });
     }
 }
 
