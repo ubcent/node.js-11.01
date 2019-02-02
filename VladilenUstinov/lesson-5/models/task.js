@@ -12,6 +12,7 @@ class Task {
                     if (err) reject(err);
 
                     resolve(rows);
+                    connection.release();
                 });
             });
         });
@@ -28,6 +29,7 @@ class Task {
                     if (err) reject(err);
 
                     resolve(rows);
+                    connection.release();
                 });
             });
         });
@@ -44,6 +46,7 @@ class Task {
                     if (err) reject(err);
 
                     resolve(rows);
+                    connection.release();
                 });
             });
         });
@@ -60,6 +63,7 @@ class Task {
                     if (err) reject(err);
 
                     resolve(rows);
+                    connection.release();
                 });
             });
         });
@@ -71,10 +75,11 @@ class Task {
             pool.getConnection((err, connection) => {
                 if (err) reject(err);
 
-                connection.query("INSERT INTO tasks (`text`) VALUES (?)", text, (err, rows) => {
+                connection.query('INSERT INTO tasks (`text`) VALUES (?)', text, (err, rows) => {
                     if (err) reject(err);
 
                     resolve(rows);
+                    connection.release();
                 });
             });
         });
@@ -91,6 +96,7 @@ class Task {
                     if (err) reject(err);
 
                     resolve(rows);
+                    connection.release();
                 });
             });
         });
