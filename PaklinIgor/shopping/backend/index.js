@@ -15,19 +15,26 @@ app.use(bodyParser.json());
 app.use(cors());
 
 app.use('/api/auth', authRoutes);
-app.use(async (req, res, next) => {
-    const authHeader = req.get('Authorization');
-    if (!authHeader || authHeader.split(' ')[0].toLowerCase() !== "bearer") {
+app.use('',async (req, res, next) => {
+    try {
+        const authHeader = req.get('Authorization');
+        if (!authHeader || authHeader.split(' ')[0].toLowerCase() !== "bearer") {
+            return res.status(403).send({ message: 'No valid token' });
+        }
+        const token = authHeader.split(' ')[1];
+        if (!token) {
+            return res.status(403).send({ message: 'No valid token' });
+        }
+        const decodedToken = jwt.verify(token, 'mySecretKey');
+        const user = await User.findById(decodedToken.userId);
+        if (!user) {
+            return res.status(403).send({ message: 'No valid token' });
+        }
+        req.user = user;
+        next();
+    } catch (err) {
         return res.status(403).send({ message: 'No valid token' });
     }
-    const token = authHeader.split(' ')[1];
-    const decodedToken = jwt.verify(token, 'mySecretKey');
-    const user = await User.findById(decodedToken.userId);
-    if (!user) {
-        return res.status(403).send({ message: 'No valid token' });
-    }
-    req.user = user;
-    next();
 });
 app.use('/api/shopping', shoppingRoutes);
 

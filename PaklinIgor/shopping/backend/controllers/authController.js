@@ -22,19 +22,23 @@ exports.registration = async (req, res, next) => {
 }
 
 exports.login = async (req, res, next) => {
-    const { email, password } = req.body;
+    try {
+        const { email, password } = req.body;
 
-    const user = await User.findOne({ email });
-    if (!user) return res.status(404).send({ message: 'Credentials are wrong' });
-    const isEqual = await bcrypt.compare(password, user.password);
-    if (!isEqual) return res.status(404).send({ message: 'Credentials are wrong' });
-    const token = jwt.sign(
-        {
-            userId: user._id.toString(),
-        },
-        'mySecretKey',
-        { expiresIn: '30d' },
-    );
+        const user = await User.findOne({ email });
+        if (!user) return res.status(404).send({ message: 'Credentials are wrong' });
+        const isEqual = await bcrypt.compare(password, user.password);
+        if (!isEqual) return res.status(404).send({ message: 'Credentials are wrong' });
+        const token = jwt.sign(
+            {
+                userId: user._id.toString(),
+            },
+            'mySecretKey',
+            { expiresIn: '30d' },
+        );
 
-    res.status(200).send({ token, id: user._id.toString(), name: user.name, email: user.email });
+        res.status(200).send({ token, id: user._id.toString(), name: user.name, email: user.email });
+    } catch (err) {
+        res.status(400).send({ message: err.toString() });
+    }
 }
