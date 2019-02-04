@@ -34,12 +34,12 @@ passport.use(new LocalStrategy(async (username, password, done) => {
     const user = await User.findUser(username);
 
     if (user === null || user === undefined || user.length === 0) {
-        console.log('Пользователь не найден');
+        console.log(`Пользователь ${username} не найден`);
         return done(null, false);
     } else {
-        if (user[0].password === password) {
+        if (User.encryptPass(password) === user[0].password) {
             console.log(`Пользователь найден id # ${user[0].id}`);
-            return done(null, {user_id: user[0].id });
+            return done(null, {user_id: user[0].id});
         } else {
             return done(null, false);
         }
@@ -76,11 +76,13 @@ const mustBeAuthenticated = (req, res, next) => {
 
 app.all('/user', mustBeAuthenticated);
 app.all('/user/*', mustBeAuthenticated);
+app.all('/add', mustBeAuthenticated);
+app.all('/update/*', mustBeAuthenticated);
+app.all('/complete/*', mustBeAuthenticated);
+app.all('/remove/*', mustBeAuthenticated);
 
 app.get('/user', (req, res) => {
-    // console.log(req.user);
     res.render('user', req.user);
-    // res.send('TODO USER PAGE');
 });
 
 app.get('/user/settings', (req, res) => {
@@ -96,7 +98,7 @@ app.get('/', (req, res) => {
 });
 
 app.post('/add', (req, res) => {
-    Task.add(req.body.task);
+    Task.add(req.body.task, req.user.id);
     res.redirect('/');
 });
 
