@@ -1,6 +1,5 @@
 # Task 6
 _TODO todo with authorization_
-``
 ## Description
 | Url | Action | Fields |
 | --- | --- |--- |
