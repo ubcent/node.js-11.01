@@ -2,6 +2,7 @@ const path = require('path');
 
 const express = require('express');
 const cookieParser = require('cookie-parser');
+const cookieSession = require('cookie-session');
 const consolidate = require('consolidate');
 const bodyParser = require('body-parser');
 const passport = require('passport');
@@ -13,6 +14,11 @@ const app = express();
 app.engine('hbs', consolidate.handlebars);
 app.set('view engine', 'hbs');
 app.set('views', path.resolve(__dirname, '../views'));
+
+app.use(cookieSession({
+    name: 'session',
+    keys: ['secret']
+}));
 
 app.use(cookieParser());
 app.use('/assets', express.static('./static'));
@@ -41,13 +47,11 @@ passport.use(new LocalStrategy(async (username, password, done) => {
 }));
 
 passport.serializeUser((id, done) => {
-    console.log(id);
-    done(null, id);
+    done(null, id.user_id);
 });
 
 passport.deserializeUser(async (id, done) => {
     const user = await User.findId(id);
-    // console.log(user[0]);
     done(null, user[0]);
 });
 
@@ -63,9 +67,7 @@ app.get('/auth', (req, res) => {
 app.post('/auth', authHandler);
 
 const mustBeAuthenticated = (req, res, next) => {
-    console.log(req.user);
     if (req.user) {
-        console.log('попал');
         return next();
     }
 
@@ -76,8 +78,9 @@ app.all('/user', mustBeAuthenticated);
 app.all('/user/*', mustBeAuthenticated);
 
 app.get('/user', (req, res) => {
-    // req.user;
-    res.send('TODO USER PAGE');
+    // console.log(req.user);
+    res.render('user', req.user);
+    // res.send('TODO USER PAGE');
 });
 
 app.get('/user/settings', (req, res) => {
