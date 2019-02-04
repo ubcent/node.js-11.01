@@ -1,0 +1,70 @@
+.Button {
+    background-color: transparent;
+    border: none;
+    color: white;
+    outline: none;
+    cursor: pointer;
+    font: inherit;
+    font-weight: bold;
+    display: block;
+    padding: 10px;
+    line-height: 1;
+    border-radius: 5px;
+}
+
+.Middle {
+    margin: 10px auto;
+}
+
+.authButton {
+    margin: 10px auto;
+    font-size: 1.5rem;
+    box-shadow: 2px 2px 5px #000;
+    border-radius: 5px;
+    padding: 10px;
+    transition: .2s;
+    color: #5C9210;    
+}
+.authButton:active {
+    transform: translate(1px,2px);
+    box-shadow: none;
+}
+
+.menuButton {
+    height: 100%;
+}
+
+.successDoc {
+    font-weight: bold;
+    font-size: 20px;
+    background: linear-gradient(to right, #71eb0d 0%, #74b85f 100%);
+    color: #93002F;
+}
+
+.Button:first-of-type {
+    /* margin-left: 0;
+    padding-left: 0; */
+}
+
+.Button:disabled {
+    color: #ccc;
+    cursor: not-allowed;
+}
+
+.Success {
+    /* color: #5C9210;     */
+    color: transparent;    
+    background-clip: text;
+    background-image: linear-gradient(to right, #71eb0d 0%, #74b85f 100%);
+    font-size: 1.5rem;
+    box-shadow: 1px 2px 5px #74b85f;
+}
+
+.Success:active {
+    transform: translate(1px,2px);
+    box-shadow: none;
+}
+
+.Danger {
+    color: #944317;
+}
