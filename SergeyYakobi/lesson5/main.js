@@ -28,7 +28,7 @@ app.get('/todo', (req, res) => {
 
 
 app.post('/todo', (req, res) => {
-	addTodo(req, res);
+    addTodo(req, res);
 });
 
 
@@ -37,15 +37,15 @@ app.post('/todo', (req, res) => {
 function getTodo(req, res){
     const tasks = Task.getAll();
 
-	tasks.then(
-	    result => {
-    		res.render('todo', {
-		        title: 'Ваши дела',
-		        todolist: result
-		    });
-	    },
-	    error => console.log(error.message)
-	);
+    tasks.then(
+        result => {
+            res.render('todo', {
+                title: 'Ваши дела',
+                todolist: result
+            });
+        },
+        error => console.log(error.message)
+    );
 }
 
 
@@ -53,19 +53,19 @@ function getTodo(req, res){
 function addTodo(req, res){
     const unixtime = Math.round(new Date().getTime() / 1000);
 
-	let tasks = Task.add({
-		title: req.body.tit,
-		descr: req.body.descr,
-		datka: unixtime
-	});
+    let tasks = Task.add({
+        title: req.body.tit,
+        descr: req.body.descr,
+        datka: unixtime
+    });
 
-	tasks.then(
-	    result => {
-	    	console.log(result);
-	    	getTodo(req, res);
-	    },
-	    error => console.log(error.message)
-	);
+    tasks.then(
+        result => {
+            console.log(result);
+            getTodo(req, res);
+        },
+        error => console.log(error.message)
+    );
 }
 
 
