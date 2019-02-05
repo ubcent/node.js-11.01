@@ -25,7 +25,7 @@ class Task {
 
                 connection.query(`SELECT *
                                   FROM tasks
-                WHERE id = ${id}`, (err, rows) => {
+                WHERE id = ${id} LIMIT 1`, (err, rows) => {
                     if (err) reject(err);
 
                     resolve(rows);
@@ -70,12 +70,12 @@ class Task {
 
     }
 
-    static add(text) {
+    static add(text, userId) {
         return new Promise((resolve, reject) => {
             pool.getConnection((err, connection) => {
                 if (err) reject(err);
 
-                connection.query('INSERT INTO tasks (`text`) VALUES (?)', text, (err, rows) => {
+                connection.query(`INSERT INTO tasks (text, userid) VALUES (?, ${userId})`, text, (err, rows) => {
                     if (err) reject(err);
 
                     resolve(rows);
