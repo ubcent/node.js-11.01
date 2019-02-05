@@ -1,0 +1,23 @@
+{
+  "name": "homework-6",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "Andrey Artamonov",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "consolidate": "^0.15.1",
+    "cookie-parser": "^1.4.3",
+    "cookie-session": "^2.0.0-beta.3",
+    "express": "^4.16.4",
+    "handlebars": "^4.0.12",
+    "mongodb": "^3.1.13",
+    "mongoose": "^5.4.9",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0"
+  }
+}

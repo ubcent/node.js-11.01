@@ -1,0 +1,94 @@
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro&subset=cyrillic);
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+input {
+    font-size: inherit;
+    font-family: inherit;
+}
+
+body {
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+h1:not(:last-child), p:not(:last-child) {
+    margin-bottom: 10px;
+}
+
+.header, .main {
+    width: 450px;
+    margin: 0 auto;
+}
+
+.header {
+    padding: 15px 0;
+}
+
+.main-menu {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.main-menu__item {
+    font-weight: bold;
+    margin: 0 10px;
+}
+
+.title-center {
+    text-align: center;
+}
+
+.form {
+    width: 320px;
+    margin: 0 auto;
+}
+
+.form__row {
+   display: flex;
+   justify-content: space-between;
+   margin-bottom: 10px;
+}
+
+.form__row_justify-start {
+    justify-content: flex-start;
+}
+
+.form__label {
+    flex-basis: 125px;
+}
+
+.padding-left {
+    padding-left: 6px;
+}
+
+.form__input, .form__submit {
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.form__input {
+    padding: 5px 10px;
+}
+
+.form__submit {
+    display: table;
+    margin: 0 auto;
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+.join-link {
+    text-decoration: underline;
+}
+
+.note {
+    text-align: center;
+}

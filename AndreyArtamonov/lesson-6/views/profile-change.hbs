@@ -1,0 +1,51 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Edit profile</title>
+        <link rel="stylesheet" href="/assets/main.css" />
+        <base href="/" />
+    </head>
+    <body>
+        <header class="header">
+            <nav class="main-menu">
+                <a href="/profile/" class="main-menu__item">My profile</a>
+                <a href="/profile/change/" class="main-menu__item">Edit profile</a>
+                <a href="/logout/" class="main-menu__item">Logout</a>
+            </nav>
+        </header>
+        <main class="main">
+            <h1 class="title-center">Edit profile</h1>
+            <form method="POST" class="form">
+                <div class="form__row form__row_justify-start">
+                    <span class="form__label">Username:</span> <span class="padding-left">{{username}}</span>
+                    <input type="hidden" name="_id" value="{{_id}}">
+                </div>
+                <div class="form__row">
+                    <label for="country" class="form__label">Country:</label>
+                    <input type="text" class="form__input" placeholder="{{country}}" id="country" name="country">
+                </div>
+                <div class="form__row">
+                    <label for="city" class="form__label">City:</label>
+                    <input type="text" class="form__input" placeholder="{{city}}" id="city" name="city">
+                </div>
+                <div class="form__row">
+                    <label for="university" class="form__label">University:</label>
+                    <input type="text" class="form__input" placeholder="{{university}}" id="university" name="university">
+                </div>
+                <div class="form__row">
+                    <label for="company" class="form__label">Company:</label>
+                    <input type="text" class="form__input" placeholder="{{company}}" id="company" name="company">
+                </div>
+                <div class="form__row">
+                    Created {{created}}
+                </div>
+                <div class="form__row">
+                    Updated {{updated}}
+                </div>
+                <div class="form__row">
+                    <input type="submit" class="form__submit" value="Send">
+                </div>
+            </form>
+        </main>
+    </body>
+</html>
