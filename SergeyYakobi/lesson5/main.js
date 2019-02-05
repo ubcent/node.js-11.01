@@ -9,7 +9,6 @@ const cheerio = require('cheerio');
 
 const Task = require('./task');
 
-
 const app = express();
 
 app.engine('hbs', consolidate.handlebars);
@@ -20,19 +19,13 @@ app.use('/assets', express.static('./static'))
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 
-
-
 app.get('/todo', (req, res) => {
     getTodo(req, res);
 });
 
-
 app.post('/todo', (req, res) => {
     addTodo(req, res);
 });
-
-
-
 
 function getTodo(req, res){
     const tasks = Task.getAll();
@@ -47,8 +40,6 @@ function getTodo(req, res){
         error => console.log(error.message)
     );
 }
-
-
 
 function addTodo(req, res){
     const unixtime = Math.round(new Date().getTime() / 1000);
@@ -67,8 +58,6 @@ function addTodo(req, res){
         error => console.log(error.message)
     );
 }
-
-
 
 
 app.listen(8888, () => {
