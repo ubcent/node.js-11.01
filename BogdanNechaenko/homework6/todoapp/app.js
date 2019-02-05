@@ -47,12 +47,7 @@ const mustBeAuthenticated = (req, res, next) => {
   res.redirect('/auth');
 }
 
-app.all('/user', mustBeAuthenticated);
-app.all('/user/*', mustBeAuthenticated);
-app.all('/add/*', mustBeAuthenticated);
-app.all('/update/*', mustBeAuthenticated);
-app.all('/complete/*', mustBeAuthenticated);
-app.all('/remove/*', mustBeAuthenticated);
+app.use('/', mustBeAuthenticated);
 
 app.get('/user', (req, res) => {
   res.redirect('/user/'+req.user.username);
@@ -104,7 +99,7 @@ app.get('/task/:id', (req, res) => {
 let taskId = 0;
 
 app.get('/update/:id', (req, res) => {
-    const task = Task.getById(req.params.id);
+    const task =  Task.getById(req.params.id);
     taskId = req.params.id;
     task.then((data) => {
         res.render('update', {textTask: data[0]});
