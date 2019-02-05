@@ -1,0 +1,39 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>My profile</title>
+        <link rel="stylesheet" href="/assets/main.css" />
+        <base href="/" />
+    </head>
+    <body>
+        <header class="header">
+            <nav class="main-menu">
+                <a href="/profile/" class="main-menu__item">My profile</a>
+                <a href="/profile/change/" class="main-menu__item">Edit profile</a>
+                <a href="/logout/" class="main-menu__item">Logout</a>
+            </nav>
+        </header>
+        <main class="main">
+            <h1>My profile</h1>
+            <p>Username: {{username}}</p>
+            {{#if country}}
+                <p>Country: {{country}}</p>
+            {{/if}}
+            {{#if city}}
+                <p>City: {{city}}</p>
+            {{/if}}
+            {{#if university}}
+                <p>University: {{university}}</p>
+            {{/if}}
+            {{#if company}}
+                <p>Company: {{company}}</p>
+            {{/if}}
+            {{#if created}}
+                <p>Created {{created}}</p>
+            {{/if}}
+            {{#if updated}}
+                <p>Updated {{updated}}</p>
+            {{/if}}
+        </main>
+    </body>
+</html>
