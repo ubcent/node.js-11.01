@@ -1,0 +1,52 @@
+{
+  "name": "lesson-7",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "migrate": "migrate-mongo -f ./migrations/mongo/migrate-mongo-config.js",
+    "seed": "npm run migrate up"
+  },
+  "engines": {
+    "node": ">=7.6.0"
+  },
+  "author": "Mikhail Loginov shadoww2131@gmail.com",
+  "license": "MIT",
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.5",
+    "dotenv": "^6.1.0",
+    "express": "^4.16.4",
+    "joi": "^14.3.0",
+    "jsonwebtoken": "^8.4.0",
+    "mongodb": "^3.1.10",
+    "mongoose": "^5.3.13",
+    "nanoid": "^2.0.0",
+    "nodemon": "^1.18.7"
+  },
+  "devDependencies": {
+    "eslint": "^5.9.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-config-prettier": "^3.3.0",
+    "eslint-plugin-import": "^2.14.0",
+    "jest": "^23.6.0",
+    "lint-staged": "^8.1.0",
+    "migrate-mongo": "^4.1.2",
+    "pre-commit": "^1.2.2"
+  },
+  "eslintConfig": {
+    "root": true,
+    "extends": [
+      "airbnb-base",
+      "prettier"
+    ],
+    "env": {
+      "node": true
+    }
+  },
+  "pre-commit": "lint-staged",
+  "lint-staged": {
+    "*.js": "eslint"
+  }
+}
