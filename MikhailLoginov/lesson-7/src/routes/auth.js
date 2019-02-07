@@ -9,7 +9,7 @@ const schema = {
     .required(),
   password: Joi.string()
     .regex(/^[a-zA-Z0-9]{3,30}$/)
-    .required()
+    .required(),
 };
 
 const router = express.Router();
@@ -33,5 +33,5 @@ router.post('/', async (req, res) => {
 
 module.exports = {
   router,
-  schema
+  schema,
 };

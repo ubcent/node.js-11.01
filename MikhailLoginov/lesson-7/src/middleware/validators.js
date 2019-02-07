@@ -26,8 +26,7 @@ async function validateToken(req, res, next) {
     const authData = verifyToken(token, process.env.JWT_SECRET);
     req.authData = authData;
     return next();
-  }
-  catch (err) {
+  } catch (err) {
     return res.sendStatus(statusCodes.UNAUTHORIZED);
   }
 }
@@ -52,12 +51,12 @@ function validateParams(schema) {
     }
 
     return next();
-  }
+  };
 }
 
 module.exports = {
   validateToken,
   setUserId,
   initState,
-  validateParams
+  validateParams,
 };

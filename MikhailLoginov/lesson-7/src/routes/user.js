@@ -2,7 +2,7 @@ const express = require('express');
 const Joi = require('joi');
 
 const { statusCodes } = require('../constants');
-const { User } = require('../dal');
+const { User } = require('../models');
 
 const schema = {
   username: Joi.string()
@@ -15,7 +15,7 @@ const schema = {
     .required(),
   email: Joi.string()
     .email({ minDomainAtoms: 2 })
-    .required()
+    .required(),
 };
 
 const router = express.Router();
@@ -39,5 +39,5 @@ router.post('/', async (req, res) => {
 
 module.exports = {
   router,
-  schema
+  schema,
 };

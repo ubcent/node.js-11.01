@@ -10,16 +10,16 @@ const { Schema } = mongoose;
 const UserSchema = new Schema({
   username: {
     type: String,
-    required: true
+    required: true,
   },
   password: {
     type: String,
-    required: true
+    required: true,
   },
   email: {
     type: String,
-    required: true
-  }
+    required: true,
+  },
 });
 
 const getHash = util.promisify(bcrypt.hash);
@@ -65,7 +65,7 @@ UserSchema.method({
 
   decodeToken(token) {
     return jwt.decode(token, { complete: true });
-  }
+  },
 });
 
 module.exports = { UserSchema };

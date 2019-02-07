@@ -2,23 +2,23 @@ const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 
-const commentSchema = new Schema({
+const blogSchema = new Schema({
   authorId: {
     type: Schema.ObjectId,
-    required: true
+    required: true,
   },
   title: {
     type: String,
-    required: true
+    required: true,
   },
   text: {
     type: String,
-    required: true
+    required: true,
   },
   createdAt: {
     type: Date,
-    default: Date.now()
-  }
+    default: Date.now(),
+  },
 });
 
-module.exports = mongoose.model('Comment', commentSchema);
+module.exports = mongoose.model('Blog', blogSchema);
