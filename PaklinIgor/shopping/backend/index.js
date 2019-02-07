@@ -25,13 +25,23 @@ app.use('',async (req, res, next) => {
         if (!token) {
             return res.status(403).send({ message: 'No valid token' });
         }
-        const decodedToken = jwt.verify(token, 'mySecretKey');
-        const user = await User.findById(decodedToken.userId);
-        if (!user) {
-            return res.status(403).send({ message: 'No valid token' });
-        }
-        req.user = user;
-        next();
+        jwt.verify(token, 'mySecretKey', async (err, decoded)=>{            
+            if (err) {
+                if (err.name === 'TokenExpiredError') {
+                    return res.status(403).send({ message: err.name });
+                } else {
+                    return res.status(403).send({ message: 'No valid token' });
+                }
+            }
+
+            decodedToken = decoded;
+            const user = await User.findById(decodedToken.userId);
+            if (!user) {
+                return res.status(403).send({ message: 'No valid token' });
+            }
+            req.user = user;
+            next();
+        });
     } catch (err) {
         return res.status(403).send({ message: 'No valid token' });
     }
