@@ -18,7 +18,6 @@ router.post('/', async (req, res) => {
   comment.authorId = new mongoose.Types.ObjectId('5bb0ac63be662302c80f8412'); // hardcoded user id
   await Comment.create(comment, (err, com) => {
     if (err) {
-      console.log(err);
       res.status(403).json({ success: false });
     } else {
       res.json(com);

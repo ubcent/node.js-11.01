@@ -27,15 +27,13 @@ async function validateToken(req, res, next) {
     req.authData = authData;
     return next();
   }
-  catch (e) {
+  catch (err) {
     return res.sendStatus(statusCodes.UNAUTHORIZED);
   }
 }
 
 function setUserId(req, res, next) {
   const { userId } = req.params;
-
-  console.log(req.headers);
 
   if (!userId) {
     return res.sendStatus(400);

@@ -3,8 +3,6 @@ const bcrypt = require('bcrypt-nodejs');
 const jwt = require('jsonwebtoken');
 const util = require('util');
 
-const { HabitSchema } = require('./habit');
-
 require('dotenv').config();
 
 const { Schema } = mongoose;
@@ -21,8 +19,7 @@ const UserSchema = new Schema({
   email: {
     type: String,
     required: true
-  },
-  habits: [HabitSchema]
+  }
 });
 
 const getHash = util.promisify(bcrypt.hash);
@@ -38,8 +35,8 @@ async function hashifyPassword(next) {
     const hash = await getHash(user.password, null, null);
     user.password = hash;
     next();
-  } catch (e) {
-    next(e);
+  } catch (err) {
+    next(err);
   }
 }
 

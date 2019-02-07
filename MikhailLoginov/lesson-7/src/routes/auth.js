@@ -1,7 +1,7 @@
 const express = require('express');
 const Joi = require('joi');
 
-const { User } = require('../dal');
+const { User } = require('../models');
 
 const schema = {
   email: Joi.string()
