@@ -1,13 +1,17 @@
 {
-  "name": "node",
+  "name": "bogdannechaenko",
   "version": "1.0.0",
   "description": "",
-  "main": "news.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "B",
+  "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.3",
     "cheerio": "^1.0.0-rc.2",
     "colors": "^1.3.3",
-<<<<<<< HEAD
     "consolidate": "^0.15.1",
     "crypto": "^1.0.1",
     "express": "^4.16.4",
@@ -15,16 +19,7 @@
     "mysql": "^2.16.0",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
-=======
-    "mysql": "^2.16.0",
->>>>>>> 2e5490a2986ce1fafb162b99345c9588281b47f9
     "request": "^2.88.0",
     "request-promise": "^4.2.2"
-  },
-  "devDependencies": {},
-  "scripts": {
-    "test": "f"
-  },
-  "author": "B",
-  "license": "ISC"
+  }
 }

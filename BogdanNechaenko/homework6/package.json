@@ -22,11 +22,6 @@
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "request": "^2.88.0",
-<<<<<<< HEAD
     "request-promise": "^4.2.2"
-=======
-    "request-promise": "^4.2.2",
-    "session": "^0.1.0"
->>>>>>> 2e5490a2986ce1fafb162b99345c9588281b47f9
   }
 }
