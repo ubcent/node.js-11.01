@@ -28,7 +28,12 @@ class Task {
                 WHERE id = ${id} LIMIT 1`, (err, rows) => {
                     if (err) reject(err);
 
-                    resolve(rows);
+                    if (rows.length) {
+                        resolve(rows);
+                    } else {
+                        resolve(`Задания с id ${id} не существует`);
+                    }
+
                     connection.release();
                 });
             });
@@ -45,7 +50,12 @@ class Task {
                 WHERE id = ${id}`, (err, rows) => {
                     if (err) reject(err);
 
-                    resolve(rows);
+                    if (rows.length) {
+                        resolve(rows);
+                    } else {
+                        resolve(`Задания с id ${id} не существует`);
+                    }
+
                     connection.release();
                 });
             });

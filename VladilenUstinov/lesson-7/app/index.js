@@ -31,6 +31,8 @@ const Task = require('../models/task');
 function validateToken(req, res, next) {
     if (req.headers.authorization) {
         const [, token] = req.headers.authorization.split(' ');
+        if (type !== 'Bearer') return res.status(403).json({message: 'Wrong type'});
+
         jwt.verify(token, 'secret', (err, decoded) => {
             if (err) return res.status(403).json({message: 'Wrong token'});
 
@@ -67,7 +69,7 @@ app.post('/auth', async (req, res) => {
             };
 
             const token = jwt.sign(data, 'secret', {expiresIn: '1h'});
-            res.session.token = token;
+            req.session.token = token;
             res.json({
                 token,
             });
@@ -91,31 +93,64 @@ app.get('/user/settings', (req, res) => {
 
 app.get('/', (req, res) => {
     const tasks = Task.getAll();
-    tasks.then((data) => {
-        res.render('todo', {tasks: data});
-    });
+    tasks.then(
+        result => {
+            res.json(result);
+        },
+        error => {
+            res.json(error.message);
+        }
+    );
 });
 
 app.post('/add', (req, res) => {
-    Task.add(req.body.task, req.user.id);
-    res.redirect('/');
+    const { task, id } = req.body;
+    const tasks = Task.add(task, id);
+
+    tasks.then(
+        result => {
+            res.json(result);
+        },
+        error => {
+            res.json(error.message);
+        }
+    );
 });
 
 app.get('/remove/:id', (req, res) => {
-    Task.remove(req.params.id);
-    res.redirect('/');
+    const task = Task.remove(req.params.id);
+    task.then(
+        result => {
+            res.json(result);
+        },
+        error => {
+            res.json(error.message);
+        }
+    );
 });
 
 app.get('/complete/:id', (req, res) => {
-    Task.complete(req.params.id);
-    res.redirect('/');
+    const task = Task.complete(req.params.id);
+    task.then(
+        result => {
+            res.json(result);
+        },
+        error => {
+            res.json(error.message);
+        }
+    );
 });
 
 app.get('/task/:id', (req, res) => {
     const task = Task.getById(req.params.id);
-    task.then((data) => {
-        res.render('task', {task: data});
-    });
+    task.then(
+        result => {
+            res.json(result);
+        },
+        error => {
+            res.json(error.message);
+        }
+    );
 });
 
 let taskId = 0;
@@ -123,9 +158,14 @@ let taskId = 0;
 app.get('/update/:id', (req, res) => {
     const task = Task.getById(req.params.id);
     taskId = req.params.id;
-    task.then((data) => {
-        res.render('update', {textTask: data[0]});
-    });
+    task.then(
+        result => {
+            res.json(result);
+        },
+        error => {
+            res.json(error.message);
+        }
+    );
 });
 
 app.post('/update', (req, res) => {
