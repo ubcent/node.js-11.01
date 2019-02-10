@@ -27,118 +27,37 @@ class Task {
 					reject(err);
 				}
 
-				connection.query('SELECT * FROM `tasks` WHERE `id` = ? LIMIT 1', taskid, (err, rows) => {
+				connection.query('SELECT * FROM `tasks` WHERE `id` = ? LIMIT 1', task, (err, rows) => {
 					connection.release();
 
 					if(err){
 						reject(err);
 					}	
+
 					resolve(rows);
-					console.log(rows);
 				});
 			});
 		});
 	}
 
-	static add(task){
-		return new Promise((resolve, reject) => {
-			config.getConnection((err, connection) => {
-				if(err){
-					reject(err);
-				}
-
-				connection.query('INSERT INTO `tasks` SET ?', task, (err, result) => {
-					connection.release();
-
-					if(err){
-						reject(err);
-					}	
-					resolve(result);
-					console.log(result.insertId);
-				});
-			});
-		});
+	static add(){
 
 	}
 
-	static remove(taskid){
-		return new Promise((resolve, reject) => {
-			config.getConnection((err, connection) => {
-				if(err){
-					reject(err);
-				}
+	static remove(){
 
-				connection.query('DELETE FROM `tasks` WHERE `id` = ?', taskid, (err, result) => {
-					connection.release();
-
-					if(err){
-						reject(err);
-					}	
-					resolve(result);
-					console.log(result);
-				});
-			});
-		});
 	}
 
-	static update(task){
-		return new Promise((resolve, reject) => {
-			config.getConnection((err, connection) => {
-				if(err){
-					reject(err);
-				}
+	static update(){
 
-				connection.query('UPDATE `tasks` SET ? WHERE `id` = ?', task, (err, result) => {
-					connection.release();
-
-					if(err){
-						reject(err);
-					}	
-					resolve(result);
-					console.log(result);
-				});
-			});
-		});
 	}
 
-	static complete(taskid){
-		return new Promise((resolve, reject) => {
-			config.getConnection((err, connection) => {
-				if(err){
-					reject(err);
-				}
+	static complete(){
 
-				connection.query('UPDATE `tasks` SET `status` = "done" WHERE `id` = ?', taskid, (err, result) => {
-					connection.release();
-
-					if(err){
-						reject(err);
-					}	
-					resolve(result);
-					console.log(result);
-				});
-			});
-		});
 	}
 
-	static prioritize(taskid){
-		return new Promise((resolve, reject) => {
-			config.getConnection((err, connection) => {
-				if(err){
-					reject(err);
-				}
+	static prioritize(){
 
-				connection.query('UPDATE `tasks` SET `priority` = "1" WHERE `id` = ?', taskid, (err, result) => {
-					connection.release();
-
-					if(err){
-						reject(err);
-					}	
-					resolve(result);
-					console.log(result);
-				});
-			});
-		});
 	}
 }
 

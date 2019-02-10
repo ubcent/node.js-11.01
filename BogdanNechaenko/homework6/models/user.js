@@ -23,7 +23,6 @@ class User {
 						reject(err);
 					}	
 					resolve(rows);
-					console.log(rows);
 				});
 			});
 		});
@@ -43,7 +42,6 @@ class User {
 						reject(err);
 					}	
 					resolve(rows);
-					console.log(rows);
 				});
 			});
 		});
@@ -54,6 +52,13 @@ class User {
 		var mystr = mykey.update(password, 'utf8', 'hex')
 		mystr += mykey.final('hex');
 		return mystr;
+  	}
+
+  	static checkPass(user, password) {
+  		if(user.password === User.encryptPass(password)){
+  			return true;
+  		}
+  		else return false;
   	}
 }
 

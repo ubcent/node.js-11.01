@@ -7,8 +7,7 @@ const bodyParser = require('body-parser');
 const session = require('express-session')
 
 const passportmodule = require('../passport/passport');
-const passport = passportmodule.passport;
-const authHandler = passportmodule.authHandler;
+const {passport, authHandler} = passportmodule;
 const crypto = require('crypto');
 
 const app = express();

@@ -1,4 +1,3 @@
-const mysql = require('mysql');
 const config = require('../config');
 
 class Task {
@@ -8,12 +7,12 @@ class Task {
 				if(err) {
 					reject(err);
 				}
-				connection.query('SELECT * FROM `tasks` WHERE `userid` = ?', userid, (err,rows) => {
+				connection.query('SELECT * FROM `tasks` WHERE `userid` = ?', userid, (err, rows) => {
 					connection.release();
 					if(err) {
 						reject(err);
 					}
-					resolve(rows);
+				resolve(rows);
 				});
 			});
 		});
@@ -31,8 +30,8 @@ class Task {
 
 					if(err){
 						reject(err);
-					}	
-					resolve(rows);
+					}
+				resolve(rows);
 				});
 			});
 		});
@@ -50,8 +49,8 @@ class Task {
 
 					if(err){
 						reject(err);
-					}	
-					resolve(result);
+					}
+				resolve(result);
 				});
 			});
 		});
@@ -70,8 +69,8 @@ class Task {
 
 					if(err){
 						reject(err);
-					}	
-					resolve(result);
+					}
+				resolve(result);
 				});
 			});
 		});
@@ -89,8 +88,8 @@ class Task {
 
 					if(err){
 						reject(err);
-					}	
-					resolve(result);
+					}
+				resolve(result);
 				});
 			});
 		});
@@ -108,8 +107,8 @@ class Task {
 
 					if(err){
 						reject(err);
-					}	
-					resolve(result);
+					}
+				resolve(result);
 				});
 			});
 		});
@@ -127,8 +126,8 @@ class Task {
 
 					if(err){
 						reject(err);
-					}	
-					resolve(result);
+					}
+				resolve(result);
 				});
 			});
 		});

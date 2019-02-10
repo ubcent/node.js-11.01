@@ -13,7 +13,7 @@ passport.use('local', new LocalStategy(async (username, password, done) => {
     console.log('User Not Found with username '+username);
   }
 
-  if(User.encryptPass(password) === user.password) {
+  if(User.checkPass(user, password)) {
     // прежде чем отправлять пользователя его нужно очистить от sensitive полей
     delete user.password;
     return done(null, user);
@@ -39,6 +39,6 @@ const authHandler = passport.authenticate('local', {
 });
 
 module.exports = {
-    passport: passport,
-    authHandler: authHandler
+    passport,
+    authHandler
 }
