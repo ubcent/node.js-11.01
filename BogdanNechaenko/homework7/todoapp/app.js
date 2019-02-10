@@ -1,13 +1,10 @@
 const path = require('path');
-const mysql = require('mysql');
 const express = require('express');
 const consolidate = require('consolidate');
-const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const jwt = require('jsonwebtoken');
-
-const crypto = require('crypto');
 
 const app = express();
 
@@ -18,6 +15,7 @@ app.set('views', path.resolve(__dirname, '../views'));
 app.use('/assets', express.static('./static'));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
+app.use(cookieParser());
 
 const Task = require('../models/task');
 const User = require('../models/user');
@@ -42,7 +40,7 @@ function validateToken(req, res, next) {
     }
 }
 
-app.use('/user', validateToken);
+app.use(/^\/(?!auth).*$/, validateToken);
 
 app.get('/auth', (req, res) => {
   res.render('loginform');
@@ -75,18 +73,18 @@ app.post('/auth', async(req,res) => {
 });
 
 app.get('/user', (req, res) => {
-  res.redirect('/user/'+req.user.username);
+    res.redirect('/user/' + req.user.username);
 });
 app.get('/user/:id', (req, res) => {
-  const tasks = Task.getAll(req.user._id);
+    const tasks = Task.getAll(req.user._id);
     tasks.then((data) => {
-    	let parsedstring = JSON.stringify(data);
-    	let json = JSON.parse(parsedstring);
-    	json.forEach(function(element) {
-    		if(element.status == 'done'){
-    			element.status = null;
-    		}
-    	});
+        let parsedstring = JSON.stringify(data);
+        let json = JSON.parse(parsedstring);
+        json.forEach(function(element) {
+            if (element.status == 'done') {
+                element.status = null;
+            }
+        });
         res.render('user', {tasks: json, textId: data[0]});
     });
 });
@@ -100,11 +98,12 @@ app.get('/', (req, res) => {
 });
 
 app.post('/add', (req, res) => {
-	    Task.add({id: null, content: req.body.task, status: 'pending', priority: 0, userid: req.user._id});
-	    res.redirect('/user');
+    console.log(req.user)
+    Task.add({id: null, content: req.body.task, status: 'pending', priority: 0, userid: req.user._id});
+    res.redirect('/user');
 });
 
-app.post('/remove/:id', (req, res) => {
+app.get('/remove/:id', (req, res) => {
     Task.remove(req.params.id);
     res.redirect('back');
 });
