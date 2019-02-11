@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Material Design Bootstrap</title>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
+  <!-- Bootstrap core CSS -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <!-- Material Design Bootstrap -->
+  <link href="css/mdb.min.css" rel="stylesheet">
+  <!-- Your custom styles (optional) -->
+  <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body class="animated fadeIn">
+
+  <!-- Start your project here-->
+  <div class="pos-abs">
+    <h4 class="mb-4 white-text h4">РЕДАКТИРОВАНИЕ:</h4>
+    <div class="popup-wrap mb-4">
+      <div class="mr-3">
+        <input type="text" class="form-control" id="editItem">
+      </div>
+      <div class="mr-3">
+        <input type="number" class="form-control" id="editQuantity">
+      </div>
+      <div>
+        <select class="browser-default custom-select" name="shop" id="editShop">
+          <option value="1" >Лента</option>
+          <option value="2">Вкусвилл</option>
+          <option value="3">Билла</option>
+        </select>
+      </div>
+    </div>
+      <div class="action-btn">
+        <button type="button" class="btn btn-outline-success btn-rounded btn-sm  waves-effect editItem-btn"> 
+          <i class="fas fa-check fa-lg"></i>
+        </button>
+      </div>
+  </div>
+  <div style="max-width:768px; margin: 0 auto" id="toBlur">
+      <div class="flex-center flex-column">
+
+      <h1 class="mb-4" >Список покупок</h1>
+      <div class="fixed-wrap">
+        <div class="fixed">
+          <div class="add-wrap mb-4">
+            <div>
+              <label for="item">Введите название</label>
+              <input class="form-control" type="text" name="item" id="item" required>
+            </div>
+            <div>
+              <label for="quantity">Введите количество</label>
+              <input class="form-control" type="number" name="quantity" id="quantity" value="1" required >
+            </div>
+            <div>
+              <label for="shop">Выберите магазин</label>
+              <select class="browser-default custom-select" name="shop" id="shop">
+                <option value="1" selected>Лента</option>
+                <option value="2">Вкусвилл</option>
+                <option value="3">Билла</option>
+              </select>
+            </div>
+          </div>
+            <div class="action-btn" style="background:none !important; width:52px !important; border-color: #fff !important; color:#fff !important">
+              <button type="button" id="addItem" class="btn btn-outline-info btn-rounded btn-sm  waves-effect" style="background:none !important;border-color: #fff !important; color:#fff !important"><i class="fas fa-plus fa-2x"></i></button>
+            </div>
+        </div>
+      </div>
+      <table class="table table-responsive-md btn-table">
+
+        <thead>
+          <tr>
+            <th>НАЗВАНИЕ</th>
+            <th>КОЛИЧЕСТВО</th>
+            <th>ГДЕ КУПИТЬ</th>
+            <th></th>
+          </tr>
+        </thead>
+      
+        <tbody>
+         <!-- Вывод списка здесь-->
+        </tbody>
+      
+      </table>
+      
+    </div>
+  </div>
+  <!-- /Start your project here-->
+
+  <!-- SCRIPTS -->
+  <!-- JQuery -->
+  <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+  <!-- Bootstrap tooltips -->
+  <script type="text/javascript" src="js/popper.min.js"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script type="text/javascript" src="js/bootstrap.min.js"></script>
+  <!-- MDB core JavaScript -->
+  <script type="text/javascript" src="js/mdb.js"></script>
+  <script type="text/javascript" src="js/main.js"></script>
+</body>
+
+</html>
