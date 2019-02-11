@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="socket.io/socket.io.js"></script>
+    <script>
+        window.addEventListener('load', () => {
+            let $list = document.getElementById('list');
+            let $send = document.getElementById('send');
+
+            let $username = document.getElementById('name');
+            let $text = document.getElementById('message');
+            let socket = io.connect('http://localhost:9999');
+
+            socket.on('message', function(message) {
+                let $li = document.createElement('li');
+                $li.textContent = `${message.username}: ${message.text} (${message.timestamp})`;
+
+                $list.appendChild($li);
+            });
+
+            $send.addEventListener('click', () => {
+                let message = {
+                    username: $username.value,
+                    text: $text.value,
+                };
+
+                socket.emit('message', message);
+            });
+        });
+    </script>
+</head>
+<body>
+<ul id="list"></ul>
+<input type="text" id="name" placeholder="Username"> <br/>
+<textarea id="message" placeholder="message"></textarea>
+<button id="send">Send</button>
+</body>
+</html>
