@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Material Design Bootstrap</title>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+  <!-- Bootstrap core CSS -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <!-- Material Design Bootstrap -->
+  <link href="css/mdb.min.css" rel="stylesheet">
+  <!-- Your custom styles (optional) -->
+  <link href="css/style.css" rel="stylesheet">
+  <style>
+    .center-text{
+      text-align: center !important;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="mdb-preloader" class="flex-center">
+    <div id="preloader-markup"></div>
+  </div>
+
+  <!-- Start your project here-->
+  <div style="padding: 40px; max-width: 1140px; margin: 0 auto;">
+    <div class="flex-center flex-column" style="margin-bottom: 80px">
+      <h1 class="" style="margin-bottom: 80px">Агрегатор новостных лент</h1>
+      <div class="flex-center news-customize justify-content-around col-12">
+         <div class="selectors flex-center flex-column col-3">
+           <h6>ИСТОЧНИК:</h6>
+             <select class="browser-default custom-select" id="source">
+               <option value="yandex" selected>Яндекс</option>
+               <option value="lenta">LENTA.RU</option>
+             </select>
+         </div> 
+         <div class="selectors flex-center flex-column col-3">
+            <h6>РАЗДЕЛ:</h6>
+              <select class="browser-default custom-select" id="category">
+                <option value="main" selected>ГЛАВНЫЕ НОВОСТИ</option>
+                <option value="business">БИЗНЕС</option>
+                <option value="sport">СПОРТ</option>
+                <option value="science">НАУКА И ТЕХНОЛОГИИ</option>
+              </select>
+          </div> 
+          <div class="selectors flex-center flex-column col-2">
+              <h6>ОТОБРАЖАТЬ ПО:</h6>
+                <select class="browser-default custom-select" id="show">
+                  <option value="6"selected>6</option>
+                  <option value="12">12</option>
+                  <option value="24">24</option>
+                </select>
+            </div> 
+        
+      </div>
+
+    </div>
+    <table id="dtBasicExample" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+        <thead class="text-white elegant-color">
+          <tr>
+            <th class="th-sm center-text">КАТЕГОРИЯ
+            </th>
+            <th class="th-sm center-text">ЗАГОЛОВОК
+            </th>
+            <th class="th-sm center-text">НОВОСТЬ
+            </th>
+          </tr>
+        </thead>
+        <tbody style="min-height: 50vh">
+          <!-- Новости появятся здесь -->
+        </tbody>
+      </table>
+  </div>
+  <!-- /Start your project here-->
+
+  <!-- SCRIPTS -->
+  <!-- JQuery -->
+  <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+  <!-- Bootstrap tooltips -->
+  <script type="text/javascript" src="js/popper.min.js"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script type="text/javascript" src="js/bootstrap.min.js"></script>
+  <!-- MDB core JavaScript -->
+  <script type="text/javascript" src="js/mdb.js"></script>
+  <script type="text/javascript" src="js/main.js"></script>
+</body>
+
+</html>
